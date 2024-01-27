@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Movie(models.Model):
+class Music(models.Model):
     name=models.CharField(max_length=30)
     language=models.CharField(max_length=30)
     duration=models.CharField(max_length=10)

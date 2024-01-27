@@ -1,7 +1,7 @@
-from .models import Movie
+from .models import Music
 from django import forms
 
-class MovieForm(forms.ModelForm):
+class MusicForm(forms.ModelForm):
     class Meta:
-        model=Movie
+        model=Music
         fields='__all__'

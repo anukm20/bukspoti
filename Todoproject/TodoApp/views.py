@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import Movie
-from .forms import MovieForm
+from .models import Music
+from .forms import MusicForm
 
 def Home(req):
-    movies=Movie.objects.all()
-    return render(req,'index.html',{'movies':movies})
+    musics=Music.objects.all()
+    return render(req,'index.html',{'musics':musics})
 def Form(req):
     if req.method=="POST": 
         name=req.POST.get('name','')
@@ -12,27 +12,27 @@ def Form(req):
         duration=req.POST.get('duration','')
         image=req.FILES['image']
         description=req.POST.get('description','')        
-        movie=Movie(name=name,language=language,duration=duration,image=image,description=description)
-        movie.save()
+        music=Music(name=name,language=language,duration=duration,image=image,description=description)
+        music.save()
         return redirect('home')
     return render(req,'form.html')
 
 
 
 def Details(req,id):
-    movies=Movie.objects.get(id=id)
-    return render(req,'details.html',{'movie':movies})
+    musics=Music.objects.get(id=id)
+    return render(req,'details.html',{'music':musics})
 def Update(req,id):
-    movies=Movie.objects.get(id=id)
-    f=MovieForm(req.POST,req.FILES or None,instance=movies)
+    musics=Music.objects.get(id=id)
+    f=MusicForm(req.POST,req.FILES or None,instance=musics)
     if f.is_valid():
         f.save()
         return redirect('home')
-    return render(req,'formUpdate.html',{"movie":movies,'f':f})
+    return render(req,'formUpdate.html',{"music":musics,'f':f})
 
 def Delete(req,id):
-    movies=Movie.objects.get(id=id)
+    musics=Music.objects.get(id=id)
     if req.method=="POST":
-        Movie.objects.filter(id=id).delete()
+        Music.objects.filter(id=id).delete()
         return redirect('home')
-    return render(req,'delete.html',{"movies":movies})
+    return render(req,'delete.html',{"musics":musics})
